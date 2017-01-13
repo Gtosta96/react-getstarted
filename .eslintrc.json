@@ -1,0 +1,21 @@
+{
+    "extends": ["airbnb", "plugin:react/recommended"],
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
+    "rules": {
+        "no-tabs": 0,
+        "indent": [2, "tab"],
+        "linebreak-style": ["error", "windows"],
+        "comma-dangle": ["error", "never"],
+
+        "react/jsx-indent": [1, "tab"],
+        "react/prefer-stateless-function": 0,
+        "react/prefer-es6-class": [1, "always"]
+    },
+    "globals": {
+        "document": true
+    }
+}

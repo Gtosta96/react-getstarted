@@ -1,4 +1,5 @@
 const debug = process.env.NODE_ENV !== 'production';
+
 const webpack = require('webpack');
 const path = require('path');
 
@@ -8,13 +9,20 @@ const config = {
 	entry: './app.jsx',
 
 	module: {
+		preLoaders: [
+			{
+				test: /\.jsx?$/,
+				loader: 'eslint',
+				exclude: /node_modules/
+			}
+		],
 		loaders: [
 			{
 				test: /\.jsx?$/,
-				exclude: /(node_modules|bower_components)/,
 				loader: 'babel-loader',
+				exclude: /node_modules/,
 				query: {
-					presets: ['react', 'env'] // es2015
+					presets: ['react', 'es2015']
 				}
 			}
 		]
@@ -23,9 +31,13 @@ const config = {
 		extensions: ['', '.js', '.jsx']
 	},
 	output: {
-		path: path.resolve(__dirname, '/app/public/js/'),
+		path: path.join(__dirname, '/app/public/js/'),
 		publicPath: 'app/dist/js/',
 		filename: 'app.min.js'
+	},
+	eslint: {
+		failOnWarning: false,
+		failOnError: true
 	},
 
 	plugins: debug ? [] : [

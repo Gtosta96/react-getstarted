@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './components/App';
+import Application from './components/flux/Application';
 
 ReactDOM.render(
-	<App />,
+	<Application />,
 	document.getElementById('app')
 );

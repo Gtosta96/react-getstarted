@@ -22,7 +22,7 @@ const config = {
 				loader: 'babel-loader',
 				exclude: /node_modules/,
 				query: {
-					presets: ['react', 'es2015']
+					presets: ['react', 'es2015', 'stage-0']
 				}
 			}
 		]
@@ -37,7 +37,7 @@ const config = {
 	},
 	eslint: {
 		failOnWarning: false,
-		failOnError: true
+		failOnError: false
 	},
 
 	plugins: debug ? [] : [

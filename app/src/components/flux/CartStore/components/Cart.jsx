@@ -2,13 +2,18 @@ import React from 'react';
 import CartActions from '../actions/CartActions';
 
 export default class Cart extends React.Component {
-
-	static removeProduct(productId) {
-		CartActions.removeFromCart(productId);
+	static removeProduct(product) {
+		CartActions.removeFromCart(product);
 	}
 
-	toggleCartDisplay(e) {
-		e.preventDefault();
+	constructor(props) {
+		super(props);
+
+		// this.removeProduct = this.constructor.removeProduct.bind(this);
+		this.toggleCartDisplay = this.toggleCartDisplay.bind(this);
+	}
+
+	toggleCartDisplay() {
 		CartActions.toggleCartVisible(!this.props.cart.isVisible);
 	}
 
@@ -22,7 +27,7 @@ export default class Cart extends React.Component {
 					<p>{ products[product].amount } x $ { products[product].price }</p>
 					<button
 						className="btn btn-danger btn-block"
-						onClick={ this.constructor.removeProduct.bind(null, products[product]) }
+						onClick={ () => this.constructor.removeProduct(products[product]) }
 					>
 						Remove
 					</button>
@@ -37,26 +42,22 @@ export default class Cart extends React.Component {
 		return (
 			<div className="row cart-component">
 				<div className="text-center">
-					<a
-						href="#"
+					<button
 						className="btn btn-lg btn-danger"
-						onClick={ this.toggleCartDisplay.bind(this) }
+						onClick={ this.toggleCartDisplay }
 					>
 						Show Cart ({ this.props.cart.amount })
-					</a>
+					</button>
 				</div>
 
 				<div className={ this.props.cart.isVisible ? 'cart-container' : 'cart-container hidden' }>
 
-					<a
-						href="#"
+					<button
 						className="glyphicon glyphicon-remove close-btn"
-						onClick={ this.toggleCartDisplay.bind(this) }
+						onClick={ this.toggleCartDisplay }
 					/>
 
-					<ul>
-						{this.renderProductsList()}
-					</ul>
+					<ul>{ this.renderProductsList() }</ul>
 
 					<div className="total">Total: { this.props.cart.total }</div>
 				</div>
@@ -73,10 +74,10 @@ const defaultProps = {
 
 const propTypes = {
 	cart: React.PropTypes.shape({
-		items: [],
+		items: React.PropTypes.object.isRequired,
 		total: React.PropTypes.number.isRequired,
 		amount: React.PropTypes.number.isRequired,
-		isVisible: React.PropTypes.bool.isRequired,
+		isVisible: React.PropTypes.bool.isRequired
 	})
 };
 

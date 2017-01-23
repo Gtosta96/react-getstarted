@@ -16,13 +16,11 @@ export default class Application extends React.Component {
 		CartStore.addChangeListener(this.onChange.bind(this));
 	}
 
-	// Remove change listener from store
 	componentWillUnmount() {
 		ProductsStore.removeChangeListener(this.onChange.bind(this));
 		CartStore.removeChangeListener(this.onChange.bind(this));
 	}
 
-	// Update state when store change
 	onChange() {
 		this.setState(getApplicationState());
 	}

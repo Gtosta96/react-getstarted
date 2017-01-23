@@ -1,6 +1,11 @@
 import React from 'react';
 
 export default class Product extends React.Component {
+	constructor() {
+		super();
+
+		this.addProduct = this.addProduct.bind(this);
+	}
 
 	addProduct() {
 		const product = this.props.product;
@@ -20,7 +25,7 @@ export default class Product extends React.Component {
 				<p><b>Quantity:</b>{ this.props.product.inventory }</p>
 
 				<button
-					onClick={ this.props.addProduct }
+					onClick={ this.addProduct }
 					className="btn btn-lg btn-block btn-danger"
 				>
 					Add to Cart

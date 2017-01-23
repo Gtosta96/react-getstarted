@@ -37,7 +37,7 @@ const config = {
 	},
 	eslint: {
 		failOnWarning: false,
-		failOnError: true
+		failOnError: false
 	},
 
 	plugins: debug ? [] : [

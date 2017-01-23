@@ -1,8 +1,11 @@
-/* eslint-disable react/jsx-no-bind */
-
 import React from 'react';
 
 export default class Product extends React.Component {
+
+	addProduct() {
+		const product = this.props.product;
+		this.props.addProduct(product);
+	}
 
 	render() {
 		return (
@@ -17,7 +20,7 @@ export default class Product extends React.Component {
 				<p><b>Quantity:</b>{ this.props.product.inventory }</p>
 
 				<button
-					onClick={ this.props.addProduct.bind(null, this.props.product) }
+					onClick={ this.props.addProduct }
 					className="btn btn-lg btn-block btn-danger"
 				>
 					Add to Cart
@@ -26,3 +29,20 @@ export default class Product extends React.Component {
 		);
 	}
 }
+
+const defaultProps = {
+	product: {}
+};
+
+const propTypes = {
+	product: React.PropTypes.shape({
+		name: React.PropTypes.string.isRequired,
+		image: React.PropTypes.string.isRequired,
+		price: React.PropTypes.number.isRequired,
+		inventory: React.PropTypes.number.isRequired
+	}),
+	addProduct: React.PropTypes.func.isRequired
+};
+
+Product.defaultProps = defaultProps;
+Product.propTypes = propTypes;

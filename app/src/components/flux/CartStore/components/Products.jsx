@@ -5,32 +5,30 @@ import Product from './Product';
 
 export default class Products extends React.Component {
 
-	// Load products when the component render
-	componentDidMount() {
-		this.loadProducts();
-	}
-
-	// Request products from somewhere
-	loadProducts() {
+	static loadProducts() {
 		setTimeout(CartActions.loadProducts.bind(null, ProductsMock.load()));
 	}
 
-	// Add Product action
-	addProduct(product) {
+	static addProduct(product) {
 		CartActions.addToCart(product);
 	}
 
+	componentDidMount() {
+		this.constructor.loadProducts();
+	}
+
 	renderProducts() {
-		return this.props.products.map(product =>
-			<Product
-				key={ product.id }
-				product={ product }
-				addProduct={ this.addProduct }
-			/>
+		return (
+			this.props.products.map(product =>
+				<Product
+					key={ product.id }
+					product={ product }
+					addProduct={ this.constructor.addProduct }
+				/>
+			)
 		);
 	}
 
-	// Render product view
 	render() {
 		return (
 			<div className="row">
@@ -39,3 +37,14 @@ export default class Products extends React.Component {
 		);
 	}
 }
+
+const defaultProps = {
+	products: []
+};
+
+const propTypes = {
+	products: React.PropTypes.array.isRequired
+};
+
+Products.defaultProps = defaultProps;
+Products.propTypes = propTypes;

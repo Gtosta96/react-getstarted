@@ -1,4 +1,6 @@
 import React from 'react';
+
+import CartDeleteButton from './CartDeleteButton';
 import CartActions from '../actions/CartActions';
 
 export default class Cart extends React.Component {
@@ -9,7 +11,6 @@ export default class Cart extends React.Component {
 	constructor(props) {
 		super(props);
 
-		// this.removeProduct = this.constructor.removeProduct.bind(this);
 		this.toggleCartDisplay = this.toggleCartDisplay.bind(this);
 	}
 
@@ -20,17 +21,16 @@ export default class Cart extends React.Component {
 	renderProductsList() {
 		const products = this.props.cart.items;
 
-		return Object.keys(products).map((product) => {
+		return Object.keys(products).map((key) => {
+			const product = products[key];
 			const li = (
-				<li key={ products[product].id }>
-					<p className="beer-name">{products[product].name}</p>
-					<p>{ products[product].amount } x $ { products[product].price }</p>
-					<button
-						className="btn btn-danger btn-block"
-						onClick={ () => this.constructor.removeProduct(products[product]) }
-					>
-						Remove
-					</button>
+				<li key={ product.id }>
+					<p className="beer-name">{product.name}</p>
+					<p>{ product.amount } x $ { product.price }</p>
+					<CartDeleteButton
+						product={ product }
+						removeProduct={ this.constructor.removeProduct }
+					/>
 				</li>
 			);
 
@@ -68,7 +68,7 @@ export default class Cart extends React.Component {
 
 const defaultProps = {
 	cart: {
-		items: []
+		items: {}
 	}
 };
 

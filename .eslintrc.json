@@ -11,6 +11,7 @@
         "indent": [2, "tab"],
         "linebreak-style": ["error", "windows"],
         "comma-dangle": ["error", "never"],
+        "no-underscore-dangle": ["error", {"allowAfterThis": true}],
 
         "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
 
